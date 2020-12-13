@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1607882433 source:c:\users\tenk\desktop\approximatioprogram\main.cpp
+1607887973 source:c:\users\tenk\desktop\approximatioprogram\main.cpp
 	<stdio.h>
 	<math.h>
 	<vector>

@@ -29,18 +29,19 @@
 #endif
 void fillSpace(double number);
 void showMatrix(std::vector<double> arrayBuff){
-    printf("|1't coor|2'd coor| index\n");
-    printf("|--------|--------|\n");
-    for(int i = 0; i < arrayBuff.size(); i += 2){
-        //printf("|%4.3lf|%4.3lf|\n", arrayBuff[i], arrayBuff[i + 1]);
-        printf("|");
-        fillSpace(arrayBuff[i]);
-        printf("%.3lf", arrayBuff[i]);
-        printf("|");
-        fillSpace(arrayBuff[i + 1]);
-        printf("%.3lf", arrayBuff[i + 1]);
-        printf("| %i\n", i / 2 + 1);
+    if(arrayBuff.size() != 0){
+        printf("|1't coor|2'd coor| index\n");
         printf("|--------|--------|\n");
+        for(int i = 0; i < arrayBuff.size(); i += 2){
+            printf("|");
+            fillSpace(arrayBuff[i]);
+            printf("%.3lf", arrayBuff[i]);
+            printf("|");
+            fillSpace(arrayBuff[i + 1]);
+            printf("%.3lf", arrayBuff[i + 1]);
+            printf("| %i\n", i / 2 + 1);
+            printf("|--------|--------|\n");
+        }
     }
 }
 void fillSpace(double number){
@@ -58,6 +59,7 @@ int main()
     int key;
     do{
         system("cls");
+        showMatrix(array);
         printf("1 - Edit plot\n2 - Write plot\n3 - Generate code\n0 - Exit\nEnter number: ");
         scanf("%i", &key);
         switch (key){
@@ -180,7 +182,7 @@ int main()
                             str.replace(str.begin() + i, str.begin() + i + 1, "_");
                     }
                     str.pop_back();
-                    std::ofstream fout(str + ".txt");
+                    std::ofstream fout(str + "_points.txt");
                     for(int i = 0; i < array.size(); i++){
                         if(i % 2 == 0 && i != 0){
                             fout << "\n";
@@ -198,11 +200,21 @@ int main()
             case(3):{
                 if(array.size() >= 4){
                     showMatrix(array);
-                    /*printf("Which coordinate is input? ");
-                    int coordinate;
-                    scanf("%i", &coordinate);*/
-                    std::ofstream fout("Arduino_code.txt");
+                    time_t curr_time;
+                    time(&curr_time);
+                    std::string str = asctime(localtime(&curr_time));
+                    for(int i = 0; i < str.length(); i++){
+                        if(str[i] == ':')
+                            str.replace(str.begin() + i, str.begin() + i + 1, "-");
+                        if(str[i] == ' ')
+                            str.replace(str.begin() + i, str.begin() + i + 1, "_");
+                    }
+                    str.pop_back();
+                    std::ofstream fout(str + "_equations.txt");
                     for(int i = 0; i < array.size() - 2; i += 2){
+                        std::cout << "y = " << (array[i + 3] - array [i + 1]) / (array[i + 2] - array[i]) << "x - " <<
+                        (array[i + 1] * (array[i + 2] - array[i]) - array[i] * (array[i + 3] - array[i + 1])) / (array[i + 2] - array[i]);
+                        std::cout << "\n";
                         fout << "y = " << (array[i + 3] - array [i + 1]) / (array[i + 2] - array[i]) << "x - " <<
                         (array[i + 1] * (array[i + 2] - array[i]) - array[i] * (array[i + 3] - array[i + 1])) / (array[i + 2] - array[i]);
                         fout << "\n";
