@@ -199,7 +199,6 @@ int main()
             }
             case(3):{
                 if(array.size() >= 4){
-                    showMatrix(array);
                     time_t curr_time;
                     time(&curr_time);
                     std::string str = asctime(localtime(&curr_time));
