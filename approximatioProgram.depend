@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1607882433 source:c:\users\tenk\desktop\approximatioprogram\main.cpp
+	<stdio.h>
+	<math.h>
+	<vector>
+	<ctime>
+	<string>
+	<fstream>
+	<iostream>
+	<unistd.h>
+	<termios.h>
+	<conio.h>
+
